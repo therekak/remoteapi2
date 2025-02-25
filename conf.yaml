@@ -1,0 +1,56 @@
+---
+App: RemoteAPI
+UUID: fbe7ef53-d21a-4827-8661-eeb6e81372e3
+Description: RemoteAPI Ionopsheric Data Retriever APP
+Version: 0.1
+
+DATA_PATH: &DATA_PATH ./
+ETC_PATH: &ETC_PATH ./etc
+LOG_PATH: &APP_LOG_PATH ./remoteapi.log
+BASE_DATE: 2017-01-01T00:00:00
+
+DEVEL: True
+
+ISTREAMAPI:
+  USER: &ISAPI_USER null
+  PASS: &ISAPI_PASS null
+  HOST: &ISAPI_HOST electron.space.noa.gr
+  PORT: &ISAPI_PORT 443
+  API: &ISAPI_API /ionostream/api/v2/
+  BASE: !join ['https://', *ISAPI_HOST, ':', *ISAPI_PORT]
+  BASE_API: !join ['https://', *ISAPI_HOST, ':', *ISAPI_PORT, *ISAPI_API]
+  Stations: ['AT138', 'DB049', 'EA036', 'EB040', 'JR055', 'PQ052', 'RO041', 'RL052', 'SO148', 'TR170']
+  Enabled: ['AT138', 'DB049', 'EA036', 'EB040', 'JR055', 'PQ052', 'RO041', 'RL052', 'SO148', 'TR170']
+
+TECHTIDEAPI:
+  USER: &TTAPI_USER null
+  PASS: &TTAPI_PASS null
+  HOST: &TTAPI_HOST techtide-srv-pub.space.noa.gr
+  PORT: &TTAPI_PORT 8443
+  API: &TTAPI_API /api/
+  BASE: !join ['https://', *TTAPI_HOST, ':', *TTAPI_PORT]
+  BASE_API: !join ['https://', *TTAPI_HOST, ':', *TTAPI_PORT, *TTAPI_API]
+  Stations: ['AT138', 'DB049', 'EA036', 'EB040', 'GR13L', 'HE13N', 'JR055', 'MO155', 'PQ052', 'RL052', 'RO041']
+  Enabled: ['AT138', 'DB049', 'EA036', 'EB040', 'GR13L', 'HE13N', 'JR055', 'PQ052', 'RL052', 'RO041']
+
+LOGGING:
+  LOG_PATH: *APP_LOG_PATH
+  STDOUT: &STDOUT_LOG_LEVEL INFO
+  FILE: INFO
+  STREAM: *STDOUT_LOG_LEVEL
+
+STATIONS:
+  EU_STATIONS: !join [*ETC_PATH, '/Europe_station_list']
+  GLOBAL_STATIONS: !join [*ETC_PATH, '/Global_station_list']
+  GLOBAL_GNSS_STATIONS: !join [*ETC_PATH, '/Global_GNSS_station_list']
+
+AIS-INGV:
+  Gibilmanna: {id: '001', URSI: GM037}
+  Warsaw: {id: '002', URSI: MZ152}
+  Olsztyn: {id: '003', URSI: OL246}
+  Rome: {id: '003', URSI: RM041}
+  Tucuman: {id: '005', URSI: TNJ20}
+Dynasonde:
+  Eiscat: {id: '101', URSI: TR170}
+
+...
